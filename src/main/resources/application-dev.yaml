@@ -1,0 +1,52 @@
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+    tech.abite: debug
+  file:
+    path: ./logs
+    name: automation_
+
+server:
+  port: 8090
+
+spring:
+  cache:
+    type: REDIS
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 10000
+    database: 0
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 100
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/automation?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: qwe123
+    hikari:
+      minimum-idle: 5 # 最小空闲时间
+      idle-timeout: 600000 # 空闲连接存活最大时间，默认是 60 00 00 ，也就是 10 分钟
+      maximum-pool-size: 10 #连接池最大连接数 默认是 10
+      auto-commit: true # 自动提交
+      max-lifetime: 1800000 # 连接池连接的最大生命周期
+      connection-timeout: 30000 # 连接查实的时间 默认 30 秒
+
+mybatis:
+  configuration:
+    cache-enabled: true
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: true
+    multiple-result-sets-enabled: true
+    use-column-label: true
+    auto-mapping-behavior: full
+    default-statement-timeout: 25000
+    map-underscore-to-camel-case: true
